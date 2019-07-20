@@ -4,39 +4,47 @@ import 'package:flutter/widgets.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget{
-  @override
+  
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return MaterialApp(
-      home: Screen(),
+      home: Words(),
       theme: ThemeData.dark(),
     );
   }
 }
 
-class Screen extends StatelessWidget{
+class Words extends StatefulWidget{
   @override
+  State<StatefulWidget> createState() {
+    return _Words();
+  }
+}
+
+class _Words extends State<Words>{
+  var _string = "Startup";
+
+  void _newword(){
+    var word = WordPair.random();
+    setState(() {
+      _string = word.asPascalCase;  
+    });
+  }
+
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return Scaffold(
       appBar: AppBar(
         title: Text("Startup name generator"),
         centerTitle: true,
       ),
-      body: Words(),
+      body: Center(
+        child: Text(_string),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.refresh),
+        onPressed: _newword,
+      )
     );
-  }
-}
-
-class Words extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    final wordpair = WordPair.random();
-
-    return Center(
-        //child: Text("Random: ${wordpair.asPascalCase}"),
-        child: Text("Random: ${wordpair.asPascalCase}"),
-      );
   }
 }
